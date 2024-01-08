@@ -25,12 +25,12 @@ create table Librarian_tbl
 );
 create sequence Librarian_seq start with 1 increment by 1;
 
-create table AccountStudent
+create table AccountStudent_tbl
 (
-id number primary key,
-nameAndFamily references Borrow_tbl,
-Borrow references Borrow_tbl,
-yourSuggestion references Borrow_tbl
+    id number primary key,
+    nameAndFamily references Borrow_tbl,
+    Borrow references Borrow_tbl,
+    yourSuggestion references Borrow_tbl
 );
 create sequence AccountStudent_seq start with 1 increment by 1;
 
@@ -43,8 +43,11 @@ create table AccountStaff
     addSuggestion nvarchar2(50)
 );
 create sequence AccountStaff_seq start with 1 increment by 1;
+create table log_tbl(
+                        id number,
+                        class_name nvarchar2(50),
+                        log_type nvarchar2(50),
+                        data nvarchar2(50)
+);
 
-
-
-
-
+create sequence log_seq start with  1 increment by 1;

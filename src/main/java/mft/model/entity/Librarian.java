@@ -14,10 +14,10 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 
-public class Librarian {
+public class Librarian extends AccountStudent {
     public  int id;
     public String nameAndFamily;
-    public String password;
+    public String authorBook;
     public String nameBook;
     public  String search;
     public Librarian() {

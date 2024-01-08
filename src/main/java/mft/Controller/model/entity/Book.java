@@ -12,8 +12,8 @@ import lombok.extern.log4j.Log4j;
 @SuperBuilder(toBuilder = true)
 
 @Log4j
-public class Book extends Management{
-   public int id;
+public class Book {
+
    public String nameBook;
    public String authorBook;
    public Management getNameAndFamily;

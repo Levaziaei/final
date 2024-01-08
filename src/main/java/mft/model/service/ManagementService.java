@@ -3,7 +3,6 @@ package mft.model.service;
 import lombok.extern.log4j.Log4j;
 import mft.model.entity.Management;
 import mft.model.repository.ManagementRepository;
-import org.apache.log4j.BasicConfigurator;
 
 @Log4j
 public class ManagementService {
@@ -16,11 +15,11 @@ public class ManagementService {
         return service;
     }
 
-    public Management remove(String username) throws Exception {
+    public Management remove(String username,String password) throws Exception {
         try (ManagementRepository managementRepository = new ManagementRepository()) {
-            Management management = managementRepository.findByUsernameAndPassword(username);
+            Management management = managementRepository.findByUsernameAndPassword(username,password);
             if (management != null) {
-                managementRepository.remove(username);
+                managementRepository.remove(username,password);
                 log.info("Save");
                 return management;
             } else {
@@ -29,14 +28,20 @@ public class ManagementService {
             }
         }
     }
-
-    public Management findByUsernameAndPassword(String username, String password) {
+    public Management findByPassword(String password) throws Exception {
         try (ManagementRepository managementRepository = new ManagementRepository()) {
-            log.info("Save");
-            return managementRepository.findByUsernameAndPassword(username);
-        } catch (Exception e) {
-            log.error("Error");
-            throw new RuntimeException(e);
+            return managementRepository.findByUsername(password);
+        }
+    }
+    public Management findByUsername(String username) throws Exception {
+        try (ManagementRepository managementRepository = new ManagementRepository()) {
+            return managementRepository.findByUsername(username);
+        }
+    }
+
+    public Management findByUsernameAndPassword(String username,String password) throws Exception {
+        try (ManagementRepository managementRepository = new ManagementRepository()) {
+            return managementRepository.findByUsernameAndPassword(username,password);
         }
     }
 

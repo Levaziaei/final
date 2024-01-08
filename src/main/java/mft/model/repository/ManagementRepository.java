@@ -3,7 +3,6 @@ package mft.model.repository;
 import lombok.extern.log4j.Log4j;
 import mft.model.entity.Management;
 import mft.model.tools.JdbcProvider;
-import org.apache.log4j.BasicConfigurator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,45 +25,85 @@ public class ManagementRepository implements AutoCloseable {
                 "INSERT INTO member_tbl(ID, username,password) VALUES (?,?,?)"
         );
         preparedStatement.setInt(1, management.getId());
-        preparedStatement.setString(3, management.getUsername());
-        preparedStatement.setString(2, management.getPassword());
+        preparedStatement.setString(2, management.getUsername());
+        preparedStatement.setString(3, management.getPassword());
         preparedStatement.execute();
         log.info("Save repository");
         return management;
     }
 
 
-    public Management remove(String username) throws Exception {
+    public Management remove(String username,String password) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM member_tbl WHERE username=?"
+                "DELETE FROM member_tbl WHERE username=? and PASSWORD=?"
         );
         preparedStatement.setString(1, username);
+        preparedStatement.setString(2, password);
         preparedStatement.execute();
         log.info("remove");
         return null;
 
     }
-
-    public Management findByUsernameAndPassword(String username) throws Exception {
+    public Management findByUsername(String username) throws Exception {
+        connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
-                "SELECT * FROM member_tbl WHERE username=? "
+                "SELECT * FROM MEMBER_TBL WHERE USERNAME=?"
         );
         preparedStatement.setString(1, username);
-
         ResultSet resultSet = preparedStatement.executeQuery();
+
         Management management = null;
         while (resultSet.next()) {
-
             management =
                     Management
                             .builder()
                             .id(resultSet.getInt("ID"))
-                            .username(resultSet.getString("username"))
-                            .password(resultSet.getString("password"))
+                            .username(resultSet.getString("USERNAME"))
+                            .password(resultSet.getString("PASSWORD"))
                             .build();
-            log.info("findByUsernameAndPassword");
-            return management;
+        }
+        return management;
+    }
+    public Management findByPassword(String password) throws Exception {
+        connection = JdbcProvider.getJdbcProvider().getConnection();
+        preparedStatement = connection.prepareStatement(
+                "SELECT * FROM MEMBER_TBL WHERE password=?"
+        );
+        preparedStatement.setString(1, password);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        Management management = null;
+        while (resultSet.next()) {
+            management =
+                Management
+                            .builder()
+                            .id(resultSet.getInt("ID"))
+                            .username(resultSet.getString("USERNAME"))
+                            .password(resultSet.getString("PASSWORD"))
+                            .build();
+        }
+        return management;
+    }
+
+    public Management findByUsernameAndPassword(String username,String password) throws Exception {
+        connection = JdbcProvider.getJdbcProvider().getConnection();
+        preparedStatement = connection.prepareStatement(
+                "SELECT * FROM MEMBER_TBL WHERE USERNAME=? AND PASSWORD=?"
+        );
+        preparedStatement.setString(1, username);
+        preparedStatement.setString(2, password);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        Management management = null;
+        while (resultSet.next()) {
+            management =
+                    Management
+                            .builder()
+                            .id(resultSet.getInt("ID"))
+                            .username(resultSet.getString("USERNAME"))
+                            .password(resultSet.getString("PASSWORD"))
+                            .build();
         }
         return management;
     }

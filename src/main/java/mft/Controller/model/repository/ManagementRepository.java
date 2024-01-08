@@ -47,7 +47,7 @@ ResultSet resultSet =  preparedStatement.executeQuery();
 
     public Management findByUsernameAndPassword(String username) throws Exception {
         preparedStatement = connection.prepareStatement(
-                "SELECT * FROM member_tbl WHERE username=?  password=?"
+"SELECT * FROM member_tbl WHERE username=?  AND password=?"
         );
         preparedStatement.setString(1, username);
 

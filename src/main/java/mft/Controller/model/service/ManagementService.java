@@ -16,11 +16,11 @@ public class ManagementService {
         return service;
     }
 
-        public Management remove(String username) throws Exception {
+        public Management remove(String username,String password) throws Exception {
             try (ManagementRepository managementRepository = new ManagementRepository()) {
-                Management management = managementRepository.findByUsernameAndPassword(username);
+                Management management = managementRepository.findByUsername(username);
                 if (management != null) {
-                    managementRepository.remove(username);
+                    managementRepository.remove(username,password);
                   log.info("Save");
                     return management;
                 }
@@ -34,7 +34,7 @@ log.error("Error");
     public Management findByUsernameAndPassword(String username, String password) {
             try (ManagementRepository managementRepository = new ManagementRepository()) {
                 log.info("Save");
-                return managementRepository.findByUsernameAndPassword(username);
+                return managementRepository.findByUsernameAndPassword(username,password);
             } catch (Exception e) {
                 log.error("Error");
                 throw new RuntimeException(e);

@@ -16,8 +16,7 @@ import lombok.extern.log4j.Log4j;
 
 public class AccountStaff extends Book{
     public int id;
-    public Book getNameBook;
-    public Book getNameAndFamily;
+    public Management getNameAndFamily;
     public UserStaff admin;
     public Book getYourSuggestion;
     public String addSuggestion;

@@ -5,10 +5,12 @@ import mft.model.entity.Book;
 import mft.model.service.BookService;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+
+import static mft.model.entity.Book.*;
+
 @Log4j
 public class BookController {
     private static BookController controller = new BookController();
@@ -20,16 +22,14 @@ public class BookController {
         return controller;
     }
 
-    public Book save(String nameBook, String authorBook, String yourSuggestion, String nameAndFamily) {
+    public Book save(Integer id, String nameBook, String yourSuggestion) {
 
         try {
             Book book =
-                    Book
-                            .builder()
+                    builder()
+                            .id(id)
                             .nameBook(nameBook)
-                            .authorBook(authorBook)
                             .yourSuggestion(yourSuggestion)
-                            .nameAndFamily(nameAndFamily)
                             .build();
             System.out.println(book);
             BookService.getService().save(book);
@@ -44,7 +44,7 @@ public class BookController {
 
 
 
-    @Path("/Book")
+
     public List<Book> findAll() {
         try {
             log.info("findAll");
@@ -63,13 +63,10 @@ public class BookController {
   public Book edit(Integer id, String nameBook, String authorBook,String yourSuggestion, String nameAndFamily) {
     try {
         Book book =
-                Book
-                        .builder()
+                builder()
                         .id(id)
                         .nameBook(nameBook)
-                        .authorBook(authorBook)
                         .yourSuggestion(yourSuggestion)
-                        .nameAndFamily(nameAndFamily)
                         .build();
         BookService.getService().edit(book);
         log.info("edit");
@@ -80,4 +77,6 @@ public class BookController {
         return null;
     }
 }
+
+
 }

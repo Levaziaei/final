@@ -7,15 +7,11 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.log4j.Log4j;
-
-
 @Getter
 @Setter
 @SuperBuilder(toBuilder = true)
-
 @Log4j
-
-public class AccountStudent extends Book{
+public class AccountStudent {
 public int id;
 public Book borrow;
 public Book getNameAndFamily;

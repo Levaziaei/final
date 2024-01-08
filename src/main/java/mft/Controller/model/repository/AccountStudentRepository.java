@@ -22,12 +22,11 @@ public class AccountStudentRepository implements AutoCloseable {
         resultSet.next();
         accountStudent.setId(resultSet.getInt("NEXT_ID"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO AccountStudent_tbl(ID, Borrow,nameAndFamily,yourSuggestion) VALUES (?,?,?,?)"
+                "INSERT INTO AccountStudent_tbl(ID,nameAndFamily,yourSuggestion) VALUES (?,?,?,?)"
         );
         preparedStatement.setInt(1, accountStudent.getId());
-        preparedStatement.setString(3, String.valueOf(accountStudent.getBorrow()));
         preparedStatement.setString(2, String.valueOf(accountStudent.getNameAndFamily()));
-        preparedStatement.setString(4, String.valueOf(accountStudent.getYourSuggestion()));
+        preparedStatement.setString(3, String.valueOf(accountStudent.getYourSuggestion()));
         preparedStatement.execute();
       log.info("save");
         return accountStudent;
@@ -47,7 +46,7 @@ public class AccountStudentRepository implements AutoCloseable {
     public AccountStudent edit(AccountStudent accountStudent) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
-                "UPDATE AccountStudent_tbl SET Borrow=?, nameandfamily=?,yourSuggestion=?, WHERE ID=?"
+                "UPDATE AccountStudent_tbl SET Borrow=?, nameandfamily=?,yourSuggestion=? WHERE ID=?"
         );
         preparedStatement.setString(1, String.valueOf(accountStudent.getBorrow()));
         preparedStatement.setString(2, String.valueOf(accountStudent.getNameAndFamily()));

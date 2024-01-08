@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 @Log4j
 public class AccountStaffRepository implements AutoCloseable {
-    private static PreparedStatement preparedStatement;
-    private static Connection connection;
+    private  PreparedStatement preparedStatement;
+    private  Connection connection;
 
     public AccountStaff save(AccountStaff accountStaff) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
@@ -24,7 +24,7 @@ public class AccountStaffRepository implements AutoCloseable {
         resultSet.next();
         accountStaff.setId(resultSet.getInt("NEXT_ID"));
   preparedStatement = connection.prepareStatement(
-"INSERT INTO AccountStaff_Tbl(ID, nameBook,nameAndFamily,yourSuggestion,addSuggestion) VALUES (?,?,?,?,?)" );
+"INSERT INTO AccountStaff_tbl(ID,nameBook,nameAndFamily,yourSuggestion,addSuggestion) VALUES (?,?,?,?,?)" );
         preparedStatement.setString(1, String.valueOf(accountStaff.getNameBook()));
         preparedStatement.setString(2, String.valueOf(accountStaff.getNameAndFamily()));
         preparedStatement.setString(3, String.valueOf(accountStaff.getYourSuggestion()));
@@ -47,7 +47,7 @@ public class AccountStaffRepository implements AutoCloseable {
     public AccountStaff edit(AccountStaff accountStaff) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
-                "UPDATE accountStaff_tbl SET nameBook=?, nameandfamily=?,yourSuggestion=?,addSuggestion=?, WHERE ID=?"
+                "UPDATE accountStaff_tbl SET nameBook=?, nameandfamily=?,yourSuggestion=?,addSuggestion=? WHERE ID=?"
         );
 
         preparedStatement.setString(2, String.valueOf(accountStaff.getNameBook()));
@@ -73,7 +73,6 @@ public class AccountStaffRepository implements AutoCloseable {
 .id(resultSet.getInt("ID"))
 .addSuggestion(resultSet.getString("suggestion add"))
 .yourSuggestion(resultSet.getString("for suggestion students "))
-.nameAndFamily(resultSet.getString("name and family "))
 .nameBook(resultSet.getString("name book"))
                             .build();
             accountStaffList.add(accountStaff);
@@ -86,7 +85,7 @@ public class AccountStaffRepository implements AutoCloseable {
     public AccountStaff findById(int id) throws SQLException {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
-                "SELECT * FROM AccountStaff WHERE ID=?"
+                "SELECT * FROM ACCOUNTSTAFF_TBL WHERE ID=?"
         );
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -98,7 +97,6 @@ public class AccountStaffRepository implements AutoCloseable {
                     .builder()
                     .id(resultSet.getInt("ID"))
                     .nameBook(resultSet.getString("Name Book"))
-                    .nameAndFamily(resultSet.getString("Family Book"))
 .addSuggestion(resultSet.getString("suggestion add"))
 .yourSuggestion(resultSet.getString("for suggestion students "))
                     .build();

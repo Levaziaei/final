@@ -1,6 +1,7 @@
 package mft.model.repository;
 import lombok.extern.log4j.Log4j;
 import mft.model.entity.Book;
+import mft.model.entity.Management;
 import mft.model.tools.JdbcProvider;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 @Log4j
 public class BookRepository implements AutoCloseable {
-private static PreparedStatement preparedStatement;
-private static Connection connection;
+private  PreparedStatement preparedStatement;
+private  Connection connection;
 
     public Book save(Book book) throws Exception {
 connection = JdbcProvider.getJdbcProvider().getConnection();
 preparedStatement = connection.prepareStatement(
-"SELECT Book_sql.nextval AS NEXT_ID FROM DUAL"
+"SELECT BORROW_SEQ.nextval AS NEXT_ID FROM DUAL"
 );
 ResultSet resultSet = preparedStatement.executeQuery();
 resultSet.next();
@@ -24,8 +25,6 @@ book.setId(resultSet.getInt("NEXT_ID"));
 preparedStatement = connection.prepareStatement(
   "INSERT INTO Borrow_Tbl(ID, nameBook,authorBook,nameAndFamily,yourSuggestion) VALUES (?,?,?,?,?)" );
 preparedStatement.setString(2, book.getNameBook());
-preparedStatement.setString(1, book.getAuthorBook());
-preparedStatement.setString(3, String.valueOf(book.getNameAndFamily()));
 preparedStatement.setString(4, book.getYourSuggestion());
 preparedStatement.setInt(5, book.getId());
 preparedStatement.execute();
@@ -45,13 +44,11 @@ return book;
     public Book edit(Book book) throws Exception {
             connection = JdbcProvider.getJdbcProvider().getConnection();
             preparedStatement = connection.prepareStatement(
-                    "UPDATE BORROW_TBL SET NAMEBOOK=?, AUTHOR=?, NAMEANDFAMILY=?,YourSugesstion=?, WHERE ID=?"
+                    "UPDATE BORROW_TBL SET NAMEBOOK=?, NAMEANDFAMILY=? WHERE ID=?"
             );
             preparedStatement.setString(1, book.getNameBook());
-            preparedStatement.setString(2, book.getAuthorBook());
-            preparedStatement.setString(3, String.valueOf(book.getNameAndFamily()));
             preparedStatement.setString(2, book.getYourSuggestion());
-            preparedStatement.setInt(6, book.getId());
+            preparedStatement.setInt(3, book.getId());
             preparedStatement.execute();
             log.info("edit");
             return book;
@@ -71,9 +68,7 @@ return book;
 .builder()
 .id(resultSet.getInt("ID"))
 .nameBook(resultSet.getString("Book is"))
-.authorBook(resultSet.getString("author is"))
 .yourSuggestion(resultSet.getString("your Suggestion"))
-.nameAndFamily(resultSet.getString("Name and family of borrow"))
 .build();
  bookList.add(book);
 log.info("findAll");
@@ -97,8 +92,6 @@ log.info("findById");
   .builder()
 .id(resultSet.getInt("ID"))
 .nameBook(resultSet.getString("Name Book"))
-.authorBook(resultSet.getString("author Book"))
-.nameAndFamily(resultSet.getString("Family Book"))
 .build();
     log.info("findById");    }
         log.info("findById");

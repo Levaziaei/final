@@ -15,7 +15,7 @@ public class LibrarianController {
         return controller;
     }
 
-    public Librarian save(String nameBook, String nameAndFamily, String search,String password) throws Exception {
+    public Librarian save(String nameBook, String nameAndFamily,String authorBook, String search,String password) throws Exception {
         if (Pattern.matches("^[a-zA-Z]$", nameAndFamily) &&
                 (Pattern.matches("^[a-zA-Z]+$", search) &
                         (Pattern.matches("^[\\w\\S]{5,30}$", password)))) {
@@ -24,8 +24,9 @@ public class LibrarianController {
                             .builder()
                             .search(search)
                             .nameAndFamily(nameAndFamily)
-                            .password(password)
-                            .build();
+                            .nameBook(nameBook)
+                            .authorBook(authorBook)
+                                  .build();
             LibrarianService.getService().save(librarian);
             log.info("Save");
             return librarian;
@@ -34,7 +35,7 @@ public class LibrarianController {
             throw new Exception("Invalid Data");
         }
     }
-    public Librarian edit(Integer id, String nameBook,  String nameAndFamily , String password) {
+    public Librarian edit(Integer id, String nameBook,  String nameAndFamily ,String authorBook) {
         try {
             Librarian librarian =
                     Librarian
@@ -42,7 +43,7 @@ public class LibrarianController {
                             .id(id)
                             .nameBook(nameBook)
                             .nameAndFamily(nameAndFamily)
-                            .password(password)
+                            .authorBook(authorBook)
                             .build();
             LibrarianService.getService().edit(librarian);
             log.info("edit");

@@ -14,7 +14,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 
 
-public class AccountStaff extends Book{
+public class AccountStaff {
     public int id;
     public Book getNameBook;
     public Book getNameAndFamily;

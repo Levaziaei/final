@@ -3,6 +3,9 @@ package mft.Controller;
 import lombok.extern.log4j.Log4j;
 import mft.model.entity.AccountStudent;
 import mft.model.service.AccountStudentService;
+
+import java.util.regex.Pattern;
+
 @Log4j
 public class AccountStudentController {
     private static AccountStudentController controller = new AccountStudentController();
@@ -14,34 +17,36 @@ public class AccountStudentController {
         return controller;
     }
 
-    public AccountStudent save(String nameBook, String nameAndFamily,String yourSuggestion) {
+    public AccountStudent save(Integer id ,String nameAndFamily,String yourSuggestion) throws Exception {
         try {
-            AccountStudent accountStudent =
-                    AccountStudent
-                            .builder()
-                            .nameBook(nameBook)
-                            .yourSuggestion(yourSuggestion)
-                            .nameAndFamily(nameAndFamily)
-                            .build();
-            System.out.println(accountStudent);
-            AccountStudentService.getService().save(accountStudent);
-            log.info("Save");
-            return accountStudent;
+                  if  (Pattern.matches("^[a-zA-Z]+$", nameAndFamily) &
+                    (Pattern.matches("^[a-zA-Z]+$", yourSuggestion))) {
+
+                AccountStudent accountStudent =
+                        AccountStudent
+                                .builder()
+                                .id(id)
+                                .nameAndFamily(nameAndFamily)
+                                .yourSuggestion(yourSuggestion)
+                                .build();
+                AccountStudentService.getService().save(accountStudent);
+                log.info("Save");
+                return accountStudent;
+            }
         } catch (Exception e) {
             System.out.println("Error : " + e.getMessage());
-            log.error("Error Save");
-            return null;
         }
+          log.error("Error Save");
+        return null;
     }
 
-    public AccountStudent edit(Integer id, String nameBook,String yourSuggestion, String nameAndFamily) {
+    public AccountStudent edit(Integer id, String yourSuggestion, String nameAndFamily) {
         try {
             AccountStudent accountStudent =
                     AccountStudent
                             .builder()
                             .id(id)
                             .yourSuggestion(yourSuggestion)
-                            .nameBook(nameBook)
                             .nameAndFamily(nameAndFamily)
                             .build();
             AccountStudentService.getService().edit(accountStudent);

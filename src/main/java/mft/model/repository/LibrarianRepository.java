@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 @Log4j
 public class LibrarianRepository implements AutoCloseable {
-    private static PreparedStatement preparedStatement;
-    private static Connection connection;
+    private  PreparedStatement preparedStatement;
+    private  Connection connection;
     public Librarian save(Librarian librarian) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
@@ -21,7 +21,7 @@ public class LibrarianRepository implements AutoCloseable {
         resultSet.next();
         librarian.setId(resultSet.getInt("NEXT_ID"));
         preparedStatement = connection.prepareStatement(
-                "INSERT INTO librarian_tbl(ID, nameAndFamily,nameBook,search) VALUES (?,?,?)"
+                "INSERT INTO librarian_tbl(ID, nameAndFamily,nameBook,search ) VALUES (?,?,?)"
         );
         preparedStatement.setInt(1, librarian.getId());
         preparedStatement.setString(3, librarian.getNameAndFamily());
@@ -44,7 +44,7 @@ Librarian librarian=null;
                     Librarian
                             .builder()
                             .id(resultSet.getInt("ID"))
-                            .password(resultSet.getString("Password"))
+                            .authorBook(resultSet.getString("authorBook"))
                             .nameAndFamily(resultSet.getString("name and family"))
                             .search(resultSet.getString("Search"))
                             .build();
@@ -57,11 +57,11 @@ Librarian librarian=null;
     public Librarian edit(Librarian librarian) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
-                "UPDATE Librarian_tbl SET nameAndFamily=?, nameBook=?, search=?, WHERE ID=?");
+                "UPDATE Librarian_tbl SET nameAndFamily=?, nameBook=?, search=?  WHERE ID=?");
         preparedStatement.setString(1, librarian.getNameBook());
         preparedStatement.setString(2, librarian.getSearch());
         preparedStatement.setString(3, String.valueOf(librarian.getNameAndFamily()));
-        preparedStatement.setInt(6, librarian.getId());
+        preparedStatement.setInt(4, librarian.getId());
         preparedStatement.execute();
         log.info("edit");
         return librarian;
