@@ -15,20 +15,19 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Management Info");
         primaryStage.show();
-Scene scene1 = new Scene(FXMLLoader
+      /**    Scene scene1 = new Scene(FXMLLoader
         .load(getClass().getResource("AccountStudentFrame.fxml")));
         primaryStage.setScene(scene1);
   primaryStage.setTitle("Login");
   primaryStage.show();
-
-        Scene scene2 = new Scene(FXMLLoader
+  Scene scene2 = new Scene(FXMLLoader
                 .load(getClass().getResource("LibrarianFrame.fxml")));
         primaryStage.setScene(scene2);
         primaryStage.setTitle("Login");
         primaryStage.show();
-
         Scene scene3 = new Scene(FXMLLoader.load(getClass().getResource("AccountStaffFrame.fxml")));
         primaryStage.setScene(scene3);
         primaryStage.setTitle("Login");
-        primaryStage.show();
+     primaryStage.show();
+*/
         }}
