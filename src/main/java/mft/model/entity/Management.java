@@ -14,7 +14,6 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class Management  {
  private int id;
- public UserType userType;
  public String username;
  public String nameAndFamily;
  public String password;

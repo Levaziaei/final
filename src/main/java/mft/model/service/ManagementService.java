@@ -41,6 +41,7 @@ public class ManagementService {
 
     public Management findByUsernameAndPassword(String username,String password) throws Exception {
         try (ManagementRepository managementRepository = new ManagementRepository()) {
+            log.info("Save");
             return managementRepository.findByUsernameAndPassword(username,password);
         }
     }

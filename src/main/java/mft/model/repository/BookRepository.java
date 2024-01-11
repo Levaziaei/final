@@ -17,24 +17,24 @@ private  Connection connection;
     public Book save(Book book) throws Exception {
 connection = JdbcProvider.getJdbcProvider().getConnection();
 preparedStatement = connection.prepareStatement(
-"SELECT BORROW_SEQ.nextval AS NEXT_ID FROM DUAL"
+"SELECT BOOK_SEQ.nextval AS NEXT_ID FROM DUAL"
 );
 ResultSet resultSet = preparedStatement.executeQuery();
 resultSet.next();
 book.setId(resultSet.getInt("NEXT_ID"));
 preparedStatement = connection.prepareStatement(
-  "INSERT INTO Borrow_Tbl(ID, nameBook,authorBook,nameAndFamily,yourSuggestion) VALUES (?,?,?,?,?)" );
-preparedStatement.setString(2, book.getNameBook());
-preparedStatement.setString(4, book.getYourSuggestion());
-preparedStatement.setInt(5, book.getId());
-preparedStatement.execute();
-log.info("save");
-return book;
+  "INSERT INTO BOOK_TBL(ID, nameBook,authorBook) VALUES (?,?,?)" );
+        preparedStatement.setInt(1, book.getId());
+        preparedStatement.setString(2, book.getNameBook());
+        preparedStatement.setString(3, book.getAuthorBook());
+        preparedStatement.execute();
+        log.info("Save repository");
+     return book;
     }
     public Book remove(int id) throws Exception {
             connection = JdbcProvider.getJdbcProvider().getConnection();
             preparedStatement = connection.prepareStatement(
-                    "DELETE FROM BORROW_TBL WHERE ID=?"
+                    "DELETE FROM BOOK_TBL WHERE ID=?"
             );
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
@@ -44,43 +44,40 @@ return book;
     public Book edit(Book book) throws Exception {
             connection = JdbcProvider.getJdbcProvider().getConnection();
             preparedStatement = connection.prepareStatement(
-                    "UPDATE BORROW_TBL SET NAMEBOOK=?, NAMEANDFAMILY=? WHERE ID=?"
+                    "UPDATE BOOK_TBL SET NAMEBOOK=?, AUTHORBOOK=? WHERE ID=?"
             );
-            preparedStatement.setString(1, book.getNameBook());
-            preparedStatement.setString(2, book.getYourSuggestion());
-            preparedStatement.setInt(3, book.getId());
+        preparedStatement.setString(1, book.getNameBook());
+        preparedStatement.setString(2, book.getAuthorBook());
+        preparedStatement.setInt(3, book.getId());
             preparedStatement.execute();
-            log.info("edit");
+            log.info("edit repository");
             return book;
     }
-    public List<Book> findAll() throws Exception {
+    public List<Book> findAll() throws Exception   {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
- "SELECT * FROM BORROW_TBL"
+                "SELECT * FROM BOOK_TBL"
         );
- ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.executeQuery();
 
- List<Book> bookList = new ArrayList<>();
+        List<Book> bookList = new ArrayList<>();
 
- while (resultSet.next()) {
- Book book =
- Book
-.builder()
-.id(resultSet.getInt("ID"))
-.nameBook(resultSet.getString("Book is"))
-.yourSuggestion(resultSet.getString("your Suggestion"))
-.build();
- bookList.add(book);
-log.info("findAll");
+        while (resultSet.next()) {
+            Book book =
+                    Book
+                            .builder()
+                            .id(resultSet.getInt("ID"))
+                            .nameBook(resultSet.getString("nameBook"))
+                            .authorBook(resultSet.getString("AuthorBook"))
+                            .build();
+            bookList.add(book);
         }
-log.info("findById");
         return bookList;
     }
-
     public Book findById(int id) throws SQLException {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
-                "SELECT * FROM BORROW_TBL WHERE ID=?"
+                "SELECT * FROM BOOK_TBL WHERE ID=?"
         );
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -93,8 +90,51 @@ log.info("findById");
 .id(resultSet.getInt("ID"))
 .nameBook(resultSet.getString("Name Book"))
 .build();
-    log.info("findById");    }
+      }
         log.info("findById");
+        return book;
+    }
+    public List<Book> findByNameBook(String nameBook) throws Exception {
+        connection = JdbcProvider.getJdbcProvider().getConnection();
+        preparedStatement = connection.prepareStatement(
+                "SELECT * FROM BOOK_TBL WHERE NAMEBOOK LIKE ?"
+        );
+        preparedStatement.setString(1,nameBook+"%");
+        ResultSet resultSet = preparedStatement.executeQuery();
+        List<Book> bookList = new ArrayList<>();
+
+        while (resultSet.next()) {
+            Book book =
+                    Book
+.builder()
+.id(resultSet.getInt("ID"))
+.nameBook(resultSet.getString("NameBook"))
+.authorBook(resultSet.getString("authorBook"))
+                             .build();
+            bookList.add(book);
+        }
+        return bookList;
+    }
+    public Book findByNameBookAndAuthorBook(String nameBook,String authorBook) throws Exception {
+        connection = JdbcProvider.getJdbcProvider().getConnection();
+        preparedStatement = connection.prepareStatement(
+                "SELECT * FROM BOOK_TBL WHERE nameBook=? And AUTHORBOOK=?"
+        );
+        preparedStatement.setString(1, nameBook);
+        preparedStatement.setString(2, authorBook);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        Book book = null;
+        while (resultSet.next()) {
+            book =
+                    Book
+                            .builder()
+                            .id(resultSet.getInt("ID"))
+                            .nameBook(resultSet.getString("nameBook"))
+                            .authorBook(resultSet.getString("authorBook"))
+                            .build();
+        }
+        log.info("Save repository");
         return book;
     }
     public void close() throws Exception {

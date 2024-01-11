@@ -2,7 +2,9 @@ package mft.model.service;
 
 import lombok.extern.log4j.Log4j;
 import mft.model.entity.Book;
+import mft.model.entity.Management;
 import mft.model.repository.BookRepository;
+import mft.model.repository.ManagementRepository;
 
 import java.util.List;
 @Log4j
@@ -51,10 +53,22 @@ public class BookService {
         }
     }
 
-    public List<Book> findAll()throws Exception {
+    public List<Book> findAll() throws Exception {
         try (BookRepository bookRepository = new BookRepository()) {
-            log.info("findAll");
+          log.info("save");
             return bookRepository.findAll();
         }
-    }}
+    }
+    public List<Book> findByNameBook(String nameBook) throws Exception {
+        try (BookRepository bookRepository = new BookRepository()) {
+            return bookRepository.findByNameBook(nameBook);
+        }
+    }
+    public Book findByNameBookAndAuthorBook(String nameBook,String authorBook) throws Exception {
+        try (BookRepository bookRepository = new BookRepository()) {
+            log.info("Save");
+            return bookRepository.findByNameBookAndAuthorBook(nameBook,authorBook);
+        }
+    }
 
+}

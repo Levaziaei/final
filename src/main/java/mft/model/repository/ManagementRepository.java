@@ -16,7 +16,7 @@ public class ManagementRepository implements AutoCloseable {
     public Management save(Management management) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
-                "SELECT member_SEQ.nextval AS NEXT_ID FROM DUAL"
+"SELECT member_SEQ.nextval AS NEXT_ID FROM DUAL"
         );
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.next();
@@ -105,6 +105,7 @@ public class ManagementRepository implements AutoCloseable {
                             .password(resultSet.getString("PASSWORD"))
                             .build();
         }
+        log.info("Save repository");
         return management;
     }
 

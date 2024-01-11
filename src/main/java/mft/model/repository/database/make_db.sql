@@ -6,48 +6,42 @@ create table Member_tbl
 );
 create sequence member_seq start with 1 increment by 1;
 
+create table Book_tbl
+(id number primary key,
+ nameBook nvarchar2(30),
+ authorBook nvarchar2(30)
+);
+create sequence Book_seq start with 1 increment by 1;
+insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,' xcdd','qwee');
+insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,' lljj','qwee');
+insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,' cyucis','hfynsl');
+commit ;
+
+
 create table Borrow_tbl
 (
-    id number primary key,
-    nameBook  nvarchar2(50),
-    authorBook  nvarchar2(50),
-    nameAndFamily  nvarchar2(50),
-    yourSuggestion nvarchar2(100)
+id  number primary key,
+username nvarchar2(30),
+nameBook nvarchar2(30),
+authorBook nvarchar2(30)
 );
 create sequence Borrow_seq start with 1 increment by 1;
 
-create table Librarian_tbl
+create table suggestion_tbl
 (
-    id number primary key,
-    nameAndFamily nvarchar2(50),
-    nameBook  nvarchar2(50),
-    search nvarchar2(50)
+id  number primary key,
+suggestion  nvarchar2(50)
 );
-create sequence Librarian_seq start with 1 increment by 1;
+create sequence suggestion_seq start with 1 increment by 1;
 
-create table AccountStudent_tbl
-(
-    id number primary key,
-    nameAndFamily references Borrow_tbl,
-    Borrow references Borrow_tbl,
-    yourSuggestion references Borrow_tbl
-);
-create sequence AccountStudent_seq start with 1 increment by 1;
-
-create table AccountStaff
-(
-    id references Borrow_tbl,
-    nameAndFamily references Borrow_tbl,
-    nameBook references Borrow_tbl,
-    yourSuggestion references Borrow_tbl,
-    addSuggestion nvarchar2(50)
-);
-create sequence AccountStaff_seq start with 1 increment by 1;
 create table log_tbl(
-                        id number,
-                        class_name nvarchar2(50),
-                        log_type nvarchar2(50),
-                        data nvarchar2(50)
+id number,
+class_name nvarchar2(50),
+log_type nvarchar2(50),
+data nvarchar2(50)
 );
-
 create sequence log_seq start with  1 increment by 1;
+

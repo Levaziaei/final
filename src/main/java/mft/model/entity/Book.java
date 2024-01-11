@@ -1,7 +1,6 @@
 package mft.model.entity;
 import com.google.gson.Gson;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.log4j.Log4j;
 
@@ -10,12 +9,10 @@ import lombok.extern.log4j.Log4j;
 @SuperBuilder(toBuilder = true)
 
 @Log4j
-public class Book extends Management  {
+public class Book  {
    public int id;
    public String nameBook;
-   public Management getNameAndFamily;
-   public String author;
-   public String yourSuggestion;
+   public String authorBook;
 
 
    public Book() {
@@ -28,5 +25,7 @@ public class Book extends Management  {
 
 
 }
+
+
 
 
