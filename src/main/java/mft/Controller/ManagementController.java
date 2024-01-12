@@ -1,9 +1,11 @@
 package mft.Controller;
 
 import lombok.extern.log4j.Log4j;
+import mft.model.entity.Borrow;
 import mft.model.entity.Management;
 import mft.model.service.ManagementService;
 
+import java.util.List;
 import java.util.regex.Pattern;
 @Log4j
 public class ManagementController {
@@ -72,9 +74,9 @@ public class ManagementController {
         Management management = ManagementService.getService().findByUsername(username);
         if (management != null) {
             log.info("save");
-            return management;
+            return  management;
         }
-        return management;
+        return null;
     }
 
 

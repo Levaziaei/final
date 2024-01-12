@@ -2,7 +2,10 @@ package mft.Controller;
 
 import lombok.extern.log4j.Log4j;
 import mft.model.entity.Admin;
+import mft.model.entity.Book;
 import mft.model.service.AdminService;
+import mft.model.service.BookService;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -18,12 +21,11 @@ public class AdminController {
         return controller;
     }
 
-    public Admin save(Integer id, String suggestion) throws Exception {
+    public Admin save(String suggestion) throws Exception {
         if (Pattern.matches("^[a-zA-Z1-9]+$", suggestion)) {
             Admin admin =
                     Admin
                             .builder()
-                            .id(id)
                             .suggestion(suggestion)
                             .build();
             System.out.println(admin);
@@ -39,4 +41,11 @@ public class AdminController {
         log.info("Save");
         return AdminService.getService().findAll();
     }
+    public Admin remove(Integer id) throws Exception {
+        Admin admin = AdminService.getService().findById(id);
+        AdminService.getService().remove(id);
+        return admin;
+    }
+
+
 }

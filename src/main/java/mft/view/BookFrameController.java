@@ -8,9 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import mft.Controller.AdminController;
 import mft.Controller.BookController;
 import mft.Controller.BorrowController;
 import mft.Controller.ManagementController;
+import mft.model.entity.Admin;
 import mft.model.entity.Book;
 import mft.model.entity.Borrow;
 import mft.model.entity.Management;
@@ -24,38 +26,46 @@ public class BookFrameController implements Initializable {
     @FXML
     private Button SaveAndRemoveBtn;
     @FXML
-    private TextField searchForNameBookTxt,nameBookTxt,authorBookTxt,usernameTxt,suggestionTxt;
+    private TextField idTxt, searchForNameBookTxt,nameBookTxt,authorBookTxt,usernameTxt,suggestionTxt;
 
     @FXML
     private TableView<Book> bookTbl;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            showDataOnTable(BookController.getController().findAll());
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
-        }
+        resetForm();
         searchForNameBookTxt.setOnKeyReleased((event) -> {
-            try {
-                showDataOnTable(BookController.getController().findByNameBook(searchForNameBookTxt.getText()));
-            } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Save Error " + e.getMessage());
-                alert.show();
-            }
+try {
+    showDataOnTable(BookController.getController().findByNameBook(searchForNameBookTxt.getText()));
+     } catch (Exception e) {
+Alert alert = new Alert(Alert.AlertType.ERROR, "Save Error " + e.getMessage());
+alert.show();
+}
         });
         SaveAndRemoveBtn.setOnAction((event) -> {
             try {
-                Borrow borrow = BorrowController.getController().save(
+                BorrowController.getController().save(
                         usernameTxt.getText(),
                         nameBookTxt.getText(),
                         authorBookTxt.getText());
-
-
-
+                     BookController.getController().remove1(
+                    nameBookTxt.getText(),
+                    authorBookTxt.getText()
+            ); Alert alert = new Alert(Alert.AlertType.INFORMATION, "User Removed");
+                alert.show();
+                resetForm();
+                Admin admin= AdminController.getController().save(
+                        suggestionTxt.getText());
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
             }
+        });
+        bookTbl.setOnMouseClicked((event) -> {
+            Book book = bookTbl.getSelectionModel().getSelectedItem();
+
+            idTxt.setText(String.valueOf(book.getId()));
+            nameBookTxt.setText(book.getNameBook());
+            authorBookTxt.setText(book.getAuthorBook());
         });
 
     }
@@ -77,6 +87,18 @@ public class BookFrameController implements Initializable {
           bookTbl.getColumns().addAll(idCol, nameBookCol, authorBookCol);
 
         bookTbl.setItems(books);
+    }
+
+    public void resetForm() {
+        try {
+            idTxt.clear();
+            nameBookTxt.clear();
+            authorBookTxt.clear();
+            showDataOnTable(BookController.getController().findAll());
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Data Load Error" + e.getMessage());
+            alert.show();
+        }
     }
 
 

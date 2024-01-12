@@ -30,6 +30,35 @@ public class AdminRepository  implements AutoCloseable {
         log.info("Save repository");
         return admin;
     }
+    public Admin remove(int id) throws Exception {
+        connection = JdbcProvider.getJdbcProvider().getConnection();
+        preparedStatement = connection.prepareStatement(
+                "Delete FROM SUGGESTION_TBL WHERE ID=?"
+        );
+
+        preparedStatement.setInt(1, id);
+        preparedStatement.execute();
+        return null;
+    }
+    public Admin findById(int id) throws Exception {
+        connection = JdbcProvider.getJdbcProvider().getConnection();
+        preparedStatement = connection.prepareStatement(
+                "SELECT * FROM SUGGESTION_TBL WHERE ID=?"
+        );
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        Admin admin = null;
+        while (resultSet.next()) {
+            admin =
+                    Admin
+                            .builder()
+                            .id(resultSet.getInt("ID"))
+                            .suggestion(resultSet.getString("Suggestion"))
+                            .build();
+        }
+        return admin;
+    }
     public List<Admin> findAll() throws Exception   {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(

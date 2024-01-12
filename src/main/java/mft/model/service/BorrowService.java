@@ -34,11 +34,11 @@ public class BorrowService {
         }
     }
 
-    public Borrow remove(String username,String nameBook, String authorBook) throws Exception {
+    public Borrow remove(int id) throws Exception {
         try (BorrowRepository borrowRepository = new BorrowRepository()) {
-            Borrow borrow = borrowRepository.findByUsernameNameBookAndAuthorBook(username,nameBook,authorBook);
+            Borrow borrow = borrowRepository.findById(id);
             if (borrow != null) {
-                borrowRepository.remove(username,nameBook,authorBook);
+                borrowRepository.remove(id);
                 log.info("Save");
                 return borrow;
             } else {
@@ -61,4 +61,8 @@ public class BorrowService {
     }
 
 
-}
+    public Borrow findById(int id) throws Exception {
+        try (BorrowRepository borrowRepository = new BorrowRepository()) {
+            return borrowRepository.findById(id);
+        }
+    }}

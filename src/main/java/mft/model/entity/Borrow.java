@@ -16,6 +16,7 @@ public String username;
 public String nameBook;
 public String authorBook;
 public Management management;
+public Book book;
   public Borrow() {
  log.info("Save created");
   }

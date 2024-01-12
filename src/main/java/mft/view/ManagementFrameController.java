@@ -27,13 +27,13 @@ import java.util.ResourceBundle;
         saveBtn.setOnAction((event) -> {
                 try {
                     Management management = ManagementController.getController().save(
-                            usernameTxt.getText(),
+                     usernameTxt.getText(),
                             nameAndFamilyTxt.getText(),
                             passwordTxt.getText());
                     if (management != null) {
                         Stage stage = new Stage();
                         Scene scene = new Scene(
-                                FXMLLoader.load(getClass().getResource("BookFrame.fxml"))
+                    FXMLLoader.load(getClass().getResource("BookFrame.fxml"))
                         );
                         stage.setScene(scene);
                         stage.setTitle("Account Information");
@@ -87,7 +87,7 @@ if (management != null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
                 }});
 
-        /**    registerForAdminBtn.setOnAction((event) -> {
+       registerForAdminBtn.setOnAction((event) -> {
     try {
 Management management = ManagementController.getController().registerForAdmin(
                 usernameTxt.getText(),
@@ -95,7 +95,7 @@ Management management = ManagementController.getController().registerForAdmin(
            if (management != null) {
             Stage stage = new Stage();
             Scene scene = new Scene(
-FXMLLoader.load(getClass().getClassLoader().getResource("BookFrame.fxml"))
+FXMLLoader.load(getClass().getClassLoader().getResource("accountStaffFrame.fxml"))
             );
             stage.setScene(scene);
             stage.setTitle("Account-Staff Information");
@@ -105,5 +105,5 @@ FXMLLoader.load(getClass().getClassLoader().getResource("BookFrame.fxml"))
         throw new RuntimeException(e);
     }
  });
-*/
+
         }}

@@ -32,19 +32,28 @@ public class BookService {
         }
     }
 
-    public Book remove(int id) throws Exception {
+    public Book remove1(String nameBook,String authorBook) throws Exception {
         try (BookRepository bookRepository = new BookRepository()) {
-            Book book = bookRepository.findById(id);
-            if (book != null) {
-                bookRepository.remove(id);
-                log.info("remove");
+            Book book = bookRepository.findByNameBookAndAuthorBook(nameBook,authorBook);
+                bookRepository.remove1(nameBook,authorBook);
+                log.info("Save");
                 return book;
-            } else {
-                log.error("Error remove");
+
+        }
+    }
+    public Book remove2(int id) throws Exception {
+        try (BookRepository bookRepository = new BookRepository()) {
+            Book book= bookRepository.findById(id);
+            if (book != null){
+                bookRepository.remove2(id);
+                return book;
+            }
+            else {
                 return null;
             }
         }
     }
+
 
     public Book findById(int id) throws Exception {
         try (BookRepository bookRepository = new BookRepository()) {

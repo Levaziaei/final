@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="959.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mft.view.AccountStaffFrameController">
+   <children>
+      <Label layoutX="14.0" layoutY="91.0" />
+      <TableView fx:id="bookTbl" layoutX="429.0" layoutY="27.0" prefHeight="200.0" prefWidth="359.0">
+        <columns>
+          <TableColumn prefWidth="75.0" />
+          <TableColumn prefWidth="75.0" />
+        </columns>
+      </TableView>
+      <TableView fx:id="borrowTbl" layoutX="13.0" layoutY="27.0" prefHeight="200.0" prefWidth="392.0">
+        <columns>
+          <TableColumn prefWidth="75.0" />
+          <TableColumn prefWidth="75.0" />
+        </columns>
+      </TableView>
+      <TableView fx:id="suggestionTbl" layoutX="441.0" layoutY="357.0" prefHeight="200.0" prefWidth="347.0">
+        <columns>
+          <TableColumn prefWidth="75.0" />
+          <TableColumn prefWidth="75.0" />
+        </columns>
+      </TableView>
+      <Button fx:id="removeBorrowBtn" layoutX="28.0" layoutY="402.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Remove" />
+      <Label layoutX="36.0" layoutY="255.0" text="Id:" />
+      <Label layoutX="20.0" layoutY="299.0" prefHeight="17.0" prefWidth="75.0" text="Username:" />
+      <Label layoutX="34.0" layoutY="337.0" text="Book:" />
+      <Label layoutX="29.0" layoutY="372.0" prefHeight="17.0" prefWidth="39.0" text="author:" />
+      <Label layoutX="471.0" layoutY="246.0" text="Id:" />
+      <Label layoutX="463.0" layoutY="278.0" text="Book:" />
+      <Label layoutX="459.0" layoutY="311.0" text="author:" />
+      <Button fx:id="removeBookBtn" layoutX="679.0" layoutY="307.0" mnemonicParsing="false" text="Remove" />
+      <Button fx:id="saveBookBtn" layoutX="679.0" layoutY="242.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Save" />
+      <Button fx:id="editBookBtn" layoutX="679.0" layoutY="274.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Edit" />
+      <Label layoutX="258.0" layoutY="397.0" text="Id:" />
+      <Label layoutX="209.0" layoutY="436.0" text="Suggestion:" />
+      <Button fx:id="removeSuggestionBtn" layoutX="211.0" layoutY="467.0" mnemonicParsing="false" text="Remove" />
+      <TextField fx:id="idBorrowTxt" layoutX="116.0" layoutY="251.0" />
+      <TextField fx:id="usernameBorrowTxt" disable="true" layoutX="116.0" layoutY="295.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="nameBookBorrowTxt" disable="true" layoutX="116.0" layoutY="333.0" />
+      <TextField fx:id="authorBookBorrowTxt" disable="true" layoutX="116.0" layoutY="368.0" />
+      <TextField fx:id="idBookTxt" layoutX="507.0" layoutY="238.0" />
+      <TextField fx:id="nameBookTxt" layoutX="507.0" layoutY="273.0" />
+      <TextField fx:id="authorBookTxt" layoutX="507.0" layoutY="307.0" />
+      <TextField fx:id="idSuggestionTxt" layoutX="280.0" layoutY="393.0" />
+      <TextField fx:id="suggestionTxt" disable="true" layoutX="280.0" layoutY="432.0" />
+   </children>
+</Pane>

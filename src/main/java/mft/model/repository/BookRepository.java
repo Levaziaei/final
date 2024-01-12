@@ -31,16 +31,28 @@ preparedStatement = connection.prepareStatement(
         log.info("Save repository");
      return book;
     }
-    public Book remove(int id) throws Exception {
-            connection = JdbcProvider.getJdbcProvider().getConnection();
-            preparedStatement = connection.prepareStatement(
-                    "DELETE FROM BOOK_TBL WHERE ID=?"
-            );
-            preparedStatement.setInt(1, id);
-            preparedStatement.execute();
-            log.info("remove");
-            return null;
-        }
+    public Book remove2(int id) throws Exception {
+        connection = JdbcProvider.getJdbcProvider().getConnection();
+        preparedStatement = connection.prepareStatement(
+                "Delete FROM BOOK_TBL WHERE ID=?"
+        );
+
+        preparedStatement.setInt(1, id);
+        preparedStatement.execute();
+        return null;
+    }
+    public Book remove1(String nameBook,String authorBook) throws Exception {
+        connection = JdbcProvider.getJdbcProvider().getConnection();
+        preparedStatement = connection.prepareStatement(
+                "DELETE FROM BOOK_TBL WHERE nameBook=? And AUTHORBOOK=?"
+        );
+        preparedStatement.setString(1, nameBook);
+        preparedStatement.setString(2, authorBook);
+        preparedStatement.execute();
+        log.info("remove");
+        return null;
+
+    }
     public Book edit(Book book) throws Exception {
             connection = JdbcProvider.getJdbcProvider().getConnection();
             preparedStatement = connection.prepareStatement(
@@ -88,7 +100,6 @@ preparedStatement = connection.prepareStatement(
                     Book
   .builder()
 .id(resultSet.getInt("ID"))
-.nameBook(resultSet.getString("Name Book"))
 .build();
       }
         log.info("findById");

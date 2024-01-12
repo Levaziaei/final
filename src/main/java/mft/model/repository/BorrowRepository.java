@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Log4j
-public class BorrowRepository implements AutoCloseable  {
+public class BorrowRepository implements AutoCloseable {
     private PreparedStatement preparedStatement;
     private Connection connection;
+
     public Borrow save(Borrow borrow) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
@@ -24,7 +25,7 @@ public class BorrowRepository implements AutoCloseable  {
         resultSet.next();
         borrow.setId(resultSet.getInt("NEXT_ID"));
         preparedStatement = connection.prepareStatement(
-"INSERT INTO BORROW_TBL(ID, USERNAME,nameBook,authorBook) VALUES (?,?,?,?)" );
+                "INSERT INTO BORROW_TBL(ID, USERNAME,nameBook,authorBook) VALUES (?,?,?,?)");
         preparedStatement.setInt(1, borrow.getId());
         preparedStatement.setString(2, borrow.getUsername());
         preparedStatement.setString(3, borrow.getNameBook());
@@ -33,19 +34,18 @@ public class BorrowRepository implements AutoCloseable  {
         log.info("Save repository");
         return borrow;
     }
-    public Borrow remove(String username,String nameBook,String authorBook) throws Exception {
+
+    public Borrow remove(int id) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
-                "DELETE FROM BORROW_TBL WHERE username=? And  NAMEBOOK=? and AUTHORBOOK=?"
+                "DELETE FROM BORROW_TBL WHERE ID=?"
         );
-        preparedStatement.setString(1, username);
-        preparedStatement.setString(2, nameBook);
-        preparedStatement.setString(3, authorBook);
+        preparedStatement.setInt(1, id);
         preparedStatement.execute();
-        log.info("remove");
         return null;
     }
-    public Borrow findByUsernameNameBookAndAuthorBook(String username,String nameBook, String authorBook) throws Exception {
+
+    public Borrow findByUsernameNameBookAndAuthorBook(String username, String nameBook, String authorBook) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM BORROW_TBL WHERE username=?And NAMEBOOK=? and AUTHORBOOK=?"
@@ -68,10 +68,11 @@ public class BorrowRepository implements AutoCloseable  {
         }
         return borrow;
     }
+
     public Borrow edit(Borrow borrow) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
-"UPDATE BORROW_TBL SET USERNAME=?, NAMEBOOK=?, AUTHORBOOK=? WHERE ID=?"
+                "UPDATE BORROW_TBL SET USERNAME=?, NAMEBOOK=?, AUTHORBOOK=? WHERE ID=?"
         );
         preparedStatement.setString(1, borrow.getUsername());
         preparedStatement.setString(2, borrow.getNameBook());
@@ -81,6 +82,7 @@ public class BorrowRepository implements AutoCloseable  {
         log.info("edit repository");
         return borrow;
     }
+
     public Borrow findById(int id) throws SQLException {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
@@ -96,14 +98,15 @@ public class BorrowRepository implements AutoCloseable  {
                             .builder()
                             .id(resultSet.getInt("ID"))
                             .username(resultSet.getString("username"))
-                            .nameBook(resultSet.getString("Name Book"))
+                            .nameBook(resultSet.getString("NameBook"))
                             .authorBook(resultSet.getString("authorBook"))
                             .build();
         }
         log.info("findById");
         return borrow;
     }
-    public List<Borrow> findAll() throws Exception   {
+
+    public List<Borrow> findAll() throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM BORROW_TBL"
@@ -117,9 +120,9 @@ public class BorrowRepository implements AutoCloseable  {
                     Borrow
                             .builder()
                             .id(resultSet.getInt("ID"))
-.username(resultSet.getString("username"))
-.nameBook(resultSet.getString("nameBook"))
-.authorBook(resultSet.getString("AuthorBook"))
+                            .username(resultSet.getString("username"))
+                            .nameBook(resultSet.getString("nameBook"))
+                            .authorBook(resultSet.getString("AuthorBook"))
                             .build();
             borrowList.add(borrow);
         }
@@ -132,3 +135,4 @@ public class BorrowRepository implements AutoCloseable  {
         connection.close();
     }
 }
+

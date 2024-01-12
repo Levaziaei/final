@@ -52,13 +52,14 @@ Management management = ManagementController.getController().findByUsername(
             return BorrowService.getService().findAll();
         }
 
-    public Borrow edit ( String username,String nameBook, String authorBook) throws Exception {
+    public Borrow edit ( Integer id,String username, String nameBook, String authorBook) throws Exception {
         if (Pattern.matches("^[a-zA-Z1-9]+$", nameBook) &&
                 (Pattern.matches("^[a-zA-Z1-9]+$", username)&&
                         (Pattern.matches("^[a-zA-Z]+$", authorBook)))) {
             Borrow borrow =
                     Borrow
                             .builder()
+                            .id(id)
                             .authorBook(authorBook)
                             .nameBook(nameBook)
                             .authorBook(authorBook)
@@ -72,10 +73,10 @@ Management management = ManagementController.getController().findByUsername(
         }
     }
 
-    public Borrow remove(String username,String nameBook, String authorBook) throws Exception {
-        Borrow borrow = BorrowService.getService().findByUsernameAndNameBookAndAuthorBook(username,nameBook,authorBook);
+    public Borrow remove(int id) throws Exception {
+        Borrow borrow = BorrowService.getService().findById(id);
         log.info("remove");
-        BorrowService.getService().remove(username, nameBook,authorBook);
+        BorrowService.getService().remove(id);
         return borrow;
     }
 }

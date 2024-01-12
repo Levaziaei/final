@@ -2,17 +2,11 @@ package mft.Controller;
 
 import lombok.extern.log4j.Log4j;
 import mft.model.entity.Book;
-import mft.model.entity.Management;
+import mft.model.entity.Borrow;
 import mft.model.service.BookService;
-import mft.model.service.ManagementService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import static mft.model.entity.Book.*;
 
 @Log4j
 public class BookController {
@@ -25,13 +19,12 @@ public class BookController {
         return controller;
     }
 
-    public Book save(Integer id, String nameBook, String authorBook) throws Exception {
+    public Book save( String nameBook, String authorBook) throws Exception {
         if (Pattern.matches("^[a-zA-Z1-9]+$", nameBook) &&
                 (Pattern.matches("^[a-zA-Z]+$", authorBook))) {
             Book book =
                     Book
                             .builder()
-                            .id(id)
                             .nameBook(nameBook)
                             .authorBook(authorBook)
                             .build();
@@ -69,9 +62,9 @@ public class BookController {
         }
     }
 
-    public Book remove(Integer id) throws Exception {
-        Book book = BookService.getService().findById(id);
-        BookService.getService().remove(id);
+    public Book remove1(String nameBook, String authorBook) throws Exception {
+        Book book = BookService.getService().findByNameBookAndAuthorBook(nameBook,authorBook);
+        BookService.getService().remove1(nameBook,authorBook);
         log.info("remove");
         return book;
     }
@@ -88,4 +81,10 @@ public class BookController {
         }
         return book;
     }
+    public Book remove2(Integer id) throws Exception {
+        Book book = BookService.getService().findById(id);
+        BookService.getService().remove2(id);
+        return book;
+    }
+
 }
