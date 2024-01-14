@@ -39,19 +39,20 @@ import java.util.ResourceBundle;
                     alert.show();
                     saveBtn.getParent().getScene().getWindow().hide();
                     } catch (Exception e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Username/Password");
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid ");
                     alert.show();
                 } });
             removeBtn.setOnAction((event) -> {
                     try {
-                        ManagementController.getController().remove(
+                Management management=        ManagementController.getController().remove(
                                 usernameTxt.getText(),
                                 passwordTxt.getText()
                         );
+                if(management!=null){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Log out");
                         alert.show();
                         removeBtn.getParent().getScene().getWindow().hide();
-                    } catch (Exception e) {
+                    }} catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Username/Password");
                         alert.show();
                     }

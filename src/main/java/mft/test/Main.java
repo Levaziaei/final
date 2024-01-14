@@ -1,4 +1,4 @@
-package mft;
+package mft.test;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j;
 import mft.Controller.BookController;
 import mft.Controller.BorrowController;
 import mft.Controller.ManagementController;
+import mft.Controller.SuggestionController;
 import mft.model.entity.Management;
 
 @Log4j
@@ -29,7 +30,10 @@ public class Main {
        // BookController.getController().remove2(62);
        // BookController.getController().save("Asdf","zxcv");
 //ManagementController.getController().findByUsernameAndPassword("Levaziaee","hhhhh");
-
+//BookController.getController().save("The gone","Nemidu hh");
+//BookController.getController().edit("")
+//  BookController.getController().remove2(222);
+//SuggestionController.getController().save("Dear enemy");
 
     }
 }

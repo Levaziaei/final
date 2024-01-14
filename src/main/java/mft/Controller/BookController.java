@@ -6,7 +6,6 @@ import mft.model.entity.Management;
 import mft.model.service.BookService;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 @Log4j
 public class BookController {
@@ -19,24 +18,19 @@ public class BookController {
         return controller;
     }
 
-    public Book save( String nameBook, String authorBook) throws Exception {
-        if (Pattern.matches("^[a-zA-Z1-9]+$", nameBook) &&
-                (Pattern.matches("^[a-zA-Z]+$", authorBook))) {
-            Book book =
-                    Book
-                            .builder()
-                            .nameBook(nameBook)
-                            .authorBook(authorBook)
-                            .build();
-            System.out.println(book);
-            BookService.getService().save(book);
-            log.info("save");
-            return book;
-        } else {
-            log.error("Error Save");
-            throw new Exception("Invalid Data");
-        }
-    }
+    public Book save(String nameBook,String authorBook)throws Exception {
+          Book book =
+                      Book
+                              .builder()
+                              .nameBook(nameBook)
+                              .authorBook(authorBook)
+                              .build();
+              System.out.println(book);
+              BookService.getService().save(book);
+              log.info("save");
+              return book;
+
+          }
 
     public List<Book> findAll() throws Exception {
         log.info("findAll");
@@ -44,8 +38,7 @@ public class BookController {
     }
 
     public Book edit(Integer id, String nameBook, String authorBook) throws Exception {
-        if (Pattern.matches("^[a-zA-Z1-9]+$", nameBook) &&
-                (Pattern.matches("^[a-zA-Z]+$", authorBook))) {
+
             Book book =
                     Book
                             .builder()
@@ -57,10 +50,7 @@ public class BookController {
             log.info("edit");
             return book;
 
-        } else {
-            throw new Exception("Invalid Data");
         }
-    }
 
     public Book remove1(String username,String nameBook, String authorBook) {
         try {Management management = ManagementController.getController().findByUsername(
@@ -76,6 +66,7 @@ public class BookController {
         }
         return null;
     }
+
         public List<Book> searchForNameBook(String nameBook) throws Exception {
        log.info("searchForNameBook");
         return BookService.getService().searchForNameBook(nameBook);

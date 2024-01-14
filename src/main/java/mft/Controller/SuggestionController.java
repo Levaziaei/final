@@ -19,21 +19,25 @@ public class SuggestionController {
         return controller;
     }
 
-    public Suggestion save(String suggest) throws Exception {
-        if (Pattern.matches("^[a-zA-Z1-9]+$", suggest)) {
-            Suggestion suggestion =
-                    Suggestion
-                            .builder()
-                            .suggest(suggest)
-                            .build();
-            System.out.println(suggestion);
-            SuggestionService.getService().save(suggestion);
-            log.info("save");
-            return suggestion;
-        } else {
-            log.error("Error Save");
-            throw new Exception("Invalid Data");
+    public Suggestion save(String suggest)  {
+        try {
+            if (Pattern.matches("^[ a-zA-Z\\d\\S]{3,30}+$", suggest)) {
+                Suggestion suggestion =
+                        Suggestion
+                                .builder()
+                                .suggest(suggest)
+                                .build();
+                SuggestionService.getService().save(suggestion);
+                log.info("Save");
+                return suggestion;
+            } else {
+                log.error("Error Save");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
+        return null;
     }
     public List<Suggestion> findAll() throws Exception {
         log.info("findAll");

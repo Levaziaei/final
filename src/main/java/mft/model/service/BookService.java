@@ -52,8 +52,6 @@ public class BookService {
             }
         }
     }
-
-
     public Book findById(int id) throws Exception {
         try (BookRepository bookRepository = new BookRepository()) {
             log.info("findById");
@@ -77,8 +75,6 @@ public class BookService {
     public Book findByNameBookAndAuthorBook(String nameBook,String authorBook) throws Exception {
         try (BookRepository bookRepository = new BookRepository()) {
             log.info("findByNameBookAndAuthorBook");
-            return bookRepository.findByNameBookAndAuthorBook(nameBook,authorBook);
+            return bookRepository.findByNameBookAndAuthorBook(nameBook, authorBook);
         }
-    }
-
-}
+    }}

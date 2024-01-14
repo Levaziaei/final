@@ -30,6 +30,7 @@ public class SuggestionRepository implements AutoCloseable {
         log.info("save ");
         return suggestion;
     }
+
     public Suggestion remove(int id) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(

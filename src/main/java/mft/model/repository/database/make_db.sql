@@ -16,6 +16,12 @@ create sequence Book_seq start with 1 increment by 1;
 insert into BOOK_TBL (id, nameBook, authorBook)
 values (BOOK_SEQ.nextval,'Happy place','Emily Henry');
 insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,'King Lear','William Shakespeare');
+insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,'Hamlet ','William Shakespeare');
+insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,'Anna Karenina','Leo Tolstoy');
+insert into BOOK_TBL (id, nameBook, authorBook)
 values (BOOK_SEQ.nextval,'The 48 Laws of Power','Robert Greene');
 insert into BOOK_TBL (id, nameBook, authorBook)
 values (BOOK_SEQ.nextval,'Love Story','Eric Segal');

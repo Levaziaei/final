@@ -14,21 +14,22 @@ private  PreparedStatement preparedStatement;
 private  Connection connection;
 
     public Book save(Book book) throws Exception {
-connection = JdbcProvider.getJdbcProvider().getConnection();
-preparedStatement = connection.prepareStatement(
-"SELECT BOOK_SEQ.nextval AS NEXT_ID FROM DUAL"
-);
-ResultSet resultSet = preparedStatement.executeQuery();
-resultSet.next();
-book.setId(resultSet.getInt("NEXT_ID"));
-preparedStatement = connection.prepareStatement(
-  "INSERT INTO BOOK_TBL(ID, nameBook,authorBook) VALUES (?,?,?)" );
+        connection = JdbcProvider.getJdbcProvider().getConnection();
+        preparedStatement = connection.prepareStatement(
+                "SELECT BORROW_SEQ.nextval AS NEXT_ID FROM DUAL"
+        );
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        book.setId(resultSet.getInt("NEXT_ID"));
+        preparedStatement = connection.prepareStatement(
+"INSERT INTO BOOK_TBL(ID, NAMEBOOK,AUTHORBOOK) VALUES (?,?,?)"
+        );
         preparedStatement.setInt(1, book.getId());
         preparedStatement.setString(2, book.getNameBook());
         preparedStatement.setString(3, book.getAuthorBook());
         preparedStatement.execute();
         log.info("save ");
-     return book;
+        return book;
     }
     public Book remove2(int id) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
@@ -151,6 +152,7 @@ preparedStatement = connection.prepareStatement(
         log.info("findByNameBookAndAuthorBook");
         return book;
     }
+
     public void close() throws Exception {
         preparedStatement.close();
         connection.close();

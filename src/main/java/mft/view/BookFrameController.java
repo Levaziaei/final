@@ -57,9 +57,8 @@ public class BookFrameController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Thanks :>");
                 alert.show();
                 resetForm2();
-
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                throw new RuntimeException(e);
             }
         });
 

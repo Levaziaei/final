@@ -48,31 +48,32 @@ public class AccountStaffFrameController  implements Initializable {
         });
         editBookBtn.setOnAction((event) -> {
             try {
+
                 Book book = BookController.getController().edit(
                         Integer.parseInt(idBookTxt.getText()),
                         nameBookTxt.getText(),
                         authorBookTxt.getText()
                 );
+                if(book!=null){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "User Edited");
                 alert.show();
-                resetForm2();
+                resetForm2();}
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Save Error " + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "edit Error " + e.getMessage());
                 alert.show();
             }
         });
 
         removeBookBtn.setOnAction((event) -> {
             try {
-                Book book = BookController.getController().remove2(Integer.parseInt(idBookTxt.getText()));
+              Book book1=BookController.getController().remove2(Integer.parseInt(idBookTxt.getText()));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "User Removed");
                 alert.show();
                 resetForm2();
-            } catch (Exception e) {
+ }          catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Save Error " + e.getMessage());
                 alert.show();
-            }
-        });
+            }});
 
      removeBorrowBtn.setOnAction((event) -> {
                 try {
@@ -165,11 +166,11 @@ ObservableList<Suggestion> suggestions = FXCollections.observableList(suggestion
         TableColumn<Suggestion, Integer> idSuggestionCol = new TableColumn<>("Id");
         idSuggestionCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<Suggestion, String> suggestionCol = new TableColumn<>("Suggestion");
-        suggestionCol.setCellValueFactory(new PropertyValueFactory<>("suggestion"));
+        TableColumn<Suggestion, String> suggestCol = new TableColumn<>("Suggestion");
+        suggestCol.setCellValueFactory(new PropertyValueFactory<>("suggest"));
 
 
-        suggestionTbl.getColumns().addAll(idSuggestionCol, suggestionCol);
+        suggestionTbl.getColumns().addAll(idSuggestionCol, suggestCol);
 
         suggestionTbl.setItems(suggestions);
     }
