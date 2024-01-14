@@ -1,7 +1,5 @@
 package mft.view;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import mft.Controller.ManagementController;
 import mft.model.entity.Management;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,8 +17,6 @@ import java.util.ResourceBundle;
 
         @FXML
         private TextField  usernameTxt, nameAndFamilyTxt, passwordTxt;
-
-
         @Override
         public void initialize(URL location, ResourceBundle resources) {
         saveBtn.setOnAction((event) -> {
@@ -33,11 +28,12 @@ import java.util.ResourceBundle;
                     if (management != null) {
                         Stage stage = new Stage();
                         Scene scene = new Scene(
-                    FXMLLoader.load(getClass().getResource("BookFrame.fxml"))
+FXMLLoader.load(getClass().getClassLoader().getResource("BookFrame.fxml"))
                         );
-                        stage.setScene(scene);
-                        stage.setTitle("Account Information");
-                        stage.show();
+                    stage.setScene(scene);
+                    stage.setTitle("Account Information");
+                    stage.show();
+                    saveBtn.getParent().getScene().getWindow().hide();
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Username/Password");
 
@@ -46,22 +42,18 @@ import java.util.ResourceBundle;
                     Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
                 }
             });
-            EventHandler romoveEventHandler = new EventHandler() {
-                @Override
-                public void handle(Event event) {
-
+            removeBtn.setOnAction((event) -> {
                     try {
                         ManagementController.getController().remove(
                                 usernameTxt.getText(),
                                 passwordTxt.getText()
                         );
+                        removeBtn.getParent().getScene().getWindow().hide();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "Log out");
-                }
-            };
-            removeBtn.setOnAction(romoveEventHandler);
+                });
 
 findByUsernameAndPasswordBtn.setOnAction((event) -> {
 try {
@@ -77,7 +69,7 @@ if (management != null) {
                         stage.setScene(scene);
                         stage.setTitle("Account Information");
                         stage.show();
-
+    findByUsernameAndPasswordBtn.getParent().getScene().getWindow().hide();
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Username/Password");
 
@@ -89,6 +81,7 @@ if (management != null) {
 
        registerForAdminBtn.setOnAction((event) -> {
     try {
+// TODO: Password and username admin == 'admin'
 Management management = ManagementController.getController().registerForAdmin(
                 usernameTxt.getText(),
                 passwordTxt.getText());
@@ -100,7 +93,7 @@ FXMLLoader.load(getClass().getClassLoader().getResource("accountStaffFrame.fxml"
             stage.setScene(scene);
             stage.setTitle("Account-Staff Information");
             stage.show();
-
+               registerForAdminBtn.getParent().getScene().getWindow().hide();
         } }catch (Exception e) {
         throw new RuntimeException(e);
     }

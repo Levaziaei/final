@@ -3,21 +3,15 @@ package mft.view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import mft.Controller.AdminController;
+import mft.Controller.SuggestionController;
 import mft.Controller.BookController;
 import mft.Controller.BorrowController;
-import mft.Controller.ManagementController;
-import mft.model.entity.Admin;
+import mft.model.entity.Suggestion;
 import mft.model.entity.Book;
 import mft.model.entity.Borrow;
-import mft.model.entity.Management;
-
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -32,7 +26,7 @@ public class AccountStaffFrameController  implements Initializable {
     @FXML
     private TableView<Book> bookTbl;
     @FXML
-    private TableView<Admin> suggestionTbl;
+    private TableView<Suggestion> suggestionTbl;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         resetForm1();
@@ -80,7 +74,7 @@ public class AccountStaffFrameController  implements Initializable {
             }
         });
 
-        removeBorrowBtn.setOnAction((event) -> {
+     removeBorrowBtn.setOnAction((event) -> {
                 try {
                     Borrow borrow = BorrowController.getController().remove(Integer.parseInt(idBorrowTxt.getText()));
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "User Removed");
@@ -91,9 +85,10 @@ public class AccountStaffFrameController  implements Initializable {
                     alert.show();
                 }
         });
-        removeSuggestionBtn.setOnAction((event) -> {
+
+      removeSuggestionBtn.setOnAction((event) -> {
             try {
-                Admin admin = AdminController.getController().remove(Integer.parseInt(idSuggestionTxt.getText()));
+                Suggestion suggestion = SuggestionController.getController().remove(Integer.parseInt(idSuggestionTxt.getText()));
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "User Removed");
                 alert.show();
                 resetForm3();
@@ -106,7 +101,7 @@ public class AccountStaffFrameController  implements Initializable {
             Borrow borrow = borrowTbl.getSelectionModel().getSelectedItem();
 
             idBorrowTxt.setText(String.valueOf(borrow.getId()));
-            usernameBorrowTxt.setText(borrow.getNameBook());
+            usernameBorrowTxt.setText(borrow.getUsername());
             nameBookBorrowTxt.setText(borrow.getNameBook());
             authorBookBorrowTxt.setText(borrow.getAuthorBook());
         });
@@ -118,10 +113,10 @@ public class AccountStaffFrameController  implements Initializable {
             authorBookTxt.setText(book.getAuthorBook());
         });
         suggestionTbl.setOnMouseClicked((event) -> {
-            Admin admin = suggestionTbl.getSelectionModel().getSelectedItem();
+            Suggestion suggestion = suggestionTbl.getSelectionModel().getSelectedItem();
 
-            idSuggestionTxt.setText(String.valueOf(admin.getId()));
-            suggestionTxt.setText(admin.getSuggestion());
+            idSuggestionTxt.setText(String.valueOf(suggestion.getId()));
+            suggestionTxt.setText(suggestion.getSuggestion());
         });
     }
 
@@ -163,14 +158,14 @@ ObservableList<Borrow> borrows = FXCollections.observableList(borrowList);
 
         bookTbl.setItems(books);
     }
-    private void showDataOnTable3(List<Admin> suggestionList) {
-ObservableList<Admin> suggestions = FXCollections.observableList(suggestionList);
+    private void showDataOnTable3(List<Suggestion> suggestionList) {
+ObservableList<Suggestion> suggestions = FXCollections.observableList(suggestionList);
         suggestionTbl.getColumns().clear();
 
-        TableColumn<Admin, Integer> idSuggestionCol = new TableColumn<>("Id");
+        TableColumn<Suggestion, Integer> idSuggestionCol = new TableColumn<>("Id");
         idSuggestionCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<Admin, String> suggestionCol = new TableColumn<>("Suggestion");
+        TableColumn<Suggestion, String> suggestionCol = new TableColumn<>("Suggestion");
         suggestionCol.setCellValueFactory(new PropertyValueFactory<>("suggestion"));
 
 
@@ -203,7 +198,7 @@ ObservableList<Admin> suggestions = FXCollections.observableList(suggestionList)
         try {
             idSuggestionTxt.clear();
            suggestionTxt.clear();
-            showDataOnTable3(AdminController.getController().findAll());
+            showDataOnTable3(SuggestionController.getController().findAll());
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Data Load Error" + e.getMessage());
             alert.show();

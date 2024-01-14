@@ -1,7 +1,6 @@
 package mft.model.repository;
 import lombok.extern.log4j.Log4j;
 import mft.model.entity.Book;
-import mft.model.entity.Management;
 import mft.model.tools.JdbcProvider;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +27,7 @@ preparedStatement = connection.prepareStatement(
         preparedStatement.setString(2, book.getNameBook());
         preparedStatement.setString(3, book.getAuthorBook());
         preparedStatement.execute();
-        log.info("Save repository");
+        log.info("save ");
      return book;
     }
     public Book remove2(int id) throws Exception {
@@ -39,6 +38,7 @@ preparedStatement = connection.prepareStatement(
 
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
+        log.info("remove2");
         return null;
     }
     public Book remove1(String nameBook,String authorBook) throws Exception {
@@ -49,7 +49,7 @@ preparedStatement = connection.prepareStatement(
         preparedStatement.setString(1, nameBook);
         preparedStatement.setString(2, authorBook);
         preparedStatement.execute();
-        log.info("remove");
+        log.info("remove1");
         return null;
 
     }
@@ -62,7 +62,7 @@ preparedStatement = connection.prepareStatement(
         preparedStatement.setString(2, book.getAuthorBook());
         preparedStatement.setInt(3, book.getId());
             preparedStatement.execute();
-            log.info("edit repository");
+            log.info("edit");
             return book;
     }
     public List<Book> findAll() throws Exception   {
@@ -84,6 +84,7 @@ preparedStatement = connection.prepareStatement(
                             .build();
             bookList.add(book);
         }
+        log.info("findAll");
         return bookList;
     }
     public Book findById(int id) throws SQLException {
@@ -105,7 +106,7 @@ preparedStatement = connection.prepareStatement(
         log.info("findById");
         return book;
     }
-    public List<Book> findByNameBook(String nameBook) throws Exception {
+    public List<Book> searchForNameBook(String nameBook) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
                 "SELECT * FROM BOOK_TBL WHERE NAMEBOOK LIKE ?"
@@ -117,15 +118,17 @@ preparedStatement = connection.prepareStatement(
         while (resultSet.next()) {
             Book book =
                     Book
-.builder()
-.id(resultSet.getInt("ID"))
-.nameBook(resultSet.getString("NameBook"))
-.authorBook(resultSet.getString("authorBook"))
-                             .build();
+                            .builder()
+                            .id(resultSet.getInt("ID"))
+                            .nameBook(resultSet.getString("nameBook"))
+                            .authorBook(resultSet.getString("authorBook"))
+                            .build();
             bookList.add(book);
         }
+        log.info("searchForNameBook");
         return bookList;
     }
+
     public Book findByNameBookAndAuthorBook(String nameBook,String authorBook) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
@@ -145,7 +148,7 @@ preparedStatement = connection.prepareStatement(
                             .authorBook(resultSet.getString("authorBook"))
                             .build();
         }
-        log.info("Save repository");
+        log.info("findByNameBookAndAuthorBook");
         return book;
     }
     public void close() throws Exception {

@@ -28,7 +28,7 @@ public class ManagementRepository implements AutoCloseable {
         preparedStatement.setString(2, management.getUsername());
         preparedStatement.setString(3, management.getPassword());
         preparedStatement.execute();
-        log.info("Save repository");
+        log.info("save");
         return management;
     }
 
@@ -63,29 +63,9 @@ public class ManagementRepository implements AutoCloseable {
                             .password(resultSet.getString("PASSWORD"))
                             .build();
         }
+        log.info("findByUsername");
         return management;
     }
-    public Management findByPassword(String password) throws Exception {
-        connection = JdbcProvider.getJdbcProvider().getConnection();
-        preparedStatement = connection.prepareStatement(
-                "SELECT * FROM MEMBER_TBL WHERE password=?"
-        );
-        preparedStatement.setString(1, password);
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        Management management = null;
-        while (resultSet.next()) {
-            management =
-                Management
-                            .builder()
-                            .id(resultSet.getInt("ID"))
-                            .username(resultSet.getString("USERNAME"))
-                            .password(resultSet.getString("PASSWORD"))
-                            .build();
-        }
-        return management;
-    }
-
     public Management findByUsernameAndPassword(String username,String password) throws Exception {
         connection = JdbcProvider.getJdbcProvider().getConnection();
         preparedStatement = connection.prepareStatement(
@@ -105,7 +85,7 @@ public class ManagementRepository implements AutoCloseable {
                             .password(resultSet.getString("PASSWORD"))
                             .build();
         }
-        log.info("Save repository");
+        log.info("findByUsernameAndPassword");
         return management;
     }
 

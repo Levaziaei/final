@@ -11,13 +11,11 @@ import lombok.extern.log4j.Log4j;
 @SuperBuilder(toBuilder = true)
 
 @Log4j
-public class Admin {
+public class Suggestion {
 public int id;
-public Management management;
-public Book book;
 public String suggestion;
 
-    public Admin() {
+    public Suggestion() {
         log.info("Save created");
     }
     @Override

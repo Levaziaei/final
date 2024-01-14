@@ -28,20 +28,17 @@ public class ManagementService {
             }
         }
     }
-    public Management findByPassword(String password) throws Exception {
-        try (ManagementRepository managementRepository = new ManagementRepository()) {
-            return managementRepository.findByUsername(password);
-        }
-    }
+
     public Management findByUsername(String username) throws Exception {
         try (ManagementRepository managementRepository = new ManagementRepository()) {
+         log.info("findByUsername");
             return managementRepository.findByUsername(username);
         }
     }
 
     public Management findByUsernameAndPassword(String username,String password) throws Exception {
         try (ManagementRepository managementRepository = new ManagementRepository()) {
-            log.info("Save");
+            log.info("findByUsernameAndPassword");
             return managementRepository.findByUsernameAndPassword(username,password);
         }
     }

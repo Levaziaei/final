@@ -1,11 +1,8 @@
 package mft.Controller;
 
 import lombok.extern.log4j.Log4j;
-import mft.model.entity.Borrow;
 import mft.model.entity.Management;
 import mft.model.service.ManagementService;
-
-import java.util.List;
 import java.util.regex.Pattern;
 @Log4j
 public class ManagementController {
@@ -43,8 +40,8 @@ public class ManagementController {
 
     public Management remove(String username, String password) throws Exception {
         Management management = ManagementService.getService().findByUsernameAndPassword(username, password);
-        log.info("remove");
         ManagementService.getService().remove(username, password);
+        log.info("remove");
         return management;
     }
 
@@ -58,13 +55,14 @@ public class ManagementController {
                     .password(password)
                     .build();
         }
+        log.info("registerForAdmin");
         return management;
     }
 
     public Management findByUsernameAndPassword(String username, String password) throws Exception {
         Management management = ManagementService.getService().findByUsernameAndPassword(username, password);
         if (management != null) {
-            log.info("save");
+            log.info("findByUsernameAndPassword");
             return management;
         }
         return management;
@@ -73,7 +71,7 @@ public class ManagementController {
     public Management findByUsername(String username) throws Exception {
         Management management = ManagementService.getService().findByUsername(username);
         if (management != null) {
-            log.info("save");
+            log.info("findByUsername");
             return  management;
         }
         return null;

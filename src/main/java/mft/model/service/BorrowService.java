@@ -2,10 +2,7 @@ package mft.model.service;
 
 import lombok.extern.log4j.Log4j;
 import mft.model.entity.Borrow;
-import mft.model.entity.Management;
 import mft.model.repository.BorrowRepository;
-import mft.model.repository.ManagementRepository;
-
 import java.util.List;
 
 
@@ -27,35 +24,23 @@ public class BorrowService {
         }
     }
 
-    public Borrow edit(Borrow borrow) throws Exception {
+    public  Borrow remove(int id) throws Exception {
         try (BorrowRepository borrowRepository = new BorrowRepository()) {
-            log.info("edit");
-            return borrowRepository.edit(borrow);
-        }
-    }
-
-    public Borrow remove(int id) throws Exception {
-        try (BorrowRepository borrowRepository = new BorrowRepository()) {
-            Borrow borrow = borrowRepository.findById(id);
-            if (borrow != null) {
+            Borrow borrow= borrowRepository.findById(id);
+            if (borrow != null){
                 borrowRepository.remove(id);
-                log.info("Save");
+                log.info("remove");
                 return borrow;
-            } else {
-                log.error("Error");
+            }
+            else {
                 return null;
             }
-        }
-    }
-    public Borrow findByUsernameAndNameBookAndAuthorBook(String username,String nameBook, String authorBook) throws Exception {
-        try (BorrowRepository borrowRepository = new BorrowRepository()) {
-            return borrowRepository.findByUsernameNameBookAndAuthorBook(username, nameBook,  authorBook);
         }
     }
 
     public List<Borrow> findAll() throws Exception {
         try (BorrowRepository borrowRepository = new BorrowRepository()) {
-            log.info("save");
+            log.info("findAll");
             return borrowRepository.findAll();
         }
     }
@@ -63,6 +48,7 @@ public class BorrowService {
 
     public Borrow findById(int id) throws Exception {
         try (BorrowRepository borrowRepository = new BorrowRepository()) {
+            log.info("findById");
             return borrowRepository.findById(id);
         }
     }}

@@ -2,9 +2,7 @@ package mft.model.service;
 
 import lombok.extern.log4j.Log4j;
 import mft.model.entity.Book;
-import mft.model.entity.Management;
 import mft.model.repository.BookRepository;
-import mft.model.repository.ManagementRepository;
 
 import java.util.List;
 @Log4j
@@ -36,7 +34,7 @@ public class BookService {
         try (BookRepository bookRepository = new BookRepository()) {
             Book book = bookRepository.findByNameBookAndAuthorBook(nameBook,authorBook);
                 bookRepository.remove1(nameBook,authorBook);
-                log.info("Save");
+                log.info("remove1");
                 return book;
 
         }
@@ -46,6 +44,7 @@ public class BookService {
             Book book= bookRepository.findById(id);
             if (book != null){
                 bookRepository.remove2(id);
+                log.info("remove2");
                 return book;
             }
             else {
@@ -64,18 +63,20 @@ public class BookService {
 
     public List<Book> findAll() throws Exception {
         try (BookRepository bookRepository = new BookRepository()) {
-          log.info("save");
+          log.info("findAll");
             return bookRepository.findAll();
         }
     }
-    public List<Book> findByNameBook(String nameBook) throws Exception {
+    public List<Book> searchForNameBook(String nameBook) throws Exception {
         try (BookRepository bookRepository = new BookRepository()) {
-            return bookRepository.findByNameBook(nameBook);
+            log.info("search.");
+            return bookRepository.searchForNameBook(nameBook);
         }
     }
+
     public Book findByNameBookAndAuthorBook(String nameBook,String authorBook) throws Exception {
         try (BookRepository bookRepository = new BookRepository()) {
-            log.info("Save");
+            log.info("findByNameBookAndAuthorBook");
             return bookRepository.findByNameBookAndAuthorBook(nameBook,authorBook);
         }
     }

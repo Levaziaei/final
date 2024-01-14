@@ -12,14 +12,18 @@ create table Book_tbl
  authorBook nvarchar2(30)
 );
 create sequence Book_seq start with 1 increment by 1;
-insert into BOOK_TBL (id, nameBook, authorBook)
-values (BOOK_SEQ.nextval,' xcdd','qwee');
-insert into BOOK_TBL (id, nameBook, authorBook)
-values (BOOK_SEQ.nextval,' lljj','qwee');
-insert into BOOK_TBL (id, nameBook, authorBook)
-values (BOOK_SEQ.nextval,' cyucis','hfynsl');
-commit ;
 
+insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,'Happy place','Emily Henry');
+insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,'The 48 Laws of Power','Robert Greene');
+insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,'Love Story','Eric Segal');
+insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,'The Prince and the Pauper','Mark Twain');
+insert into BOOK_TBL (id, nameBook, authorBook)
+values (BOOK_SEQ.nextval,'The Inheritance Games','Jennifer Lynn Barnes');
+commit ;
 
 create table Borrow_tbl
 (
