@@ -36,12 +36,13 @@ public class SuggestionController {
         }
     }
     public List<Suggestion> findAll() throws Exception {
-        log.info("Save");
+        log.info("findAll");
         return SuggestionService.getService().findAll();
     }
     public Suggestion remove(Integer id) throws Exception {
         Suggestion suggestion = SuggestionService.getService().findById(id);
         SuggestionService.getService().remove(id);
+        log.info("remove");
         return suggestion;
     }
 

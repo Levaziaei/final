@@ -35,17 +35,19 @@ public class BookFrameController implements Initializable {
                                 usernameTxt.getText(),
                                 nameBookTxt.getText(),
                                 authorBookTxt.getText());
-                      BookController.getController().remove1(
+                    Book book=  BookController.getController().remove1(
                                 usernameTxt.getText(),
                                 nameBookTxt.getText(),
                                 authorBookTxt.getText()
                        );
-                       Alert alert = new Alert(Alert.AlertType.INFORMATION, "Accept :>");
+                    if(borrow!=null && book!=null) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Accept :>");
                         alert.show();
                         resetForm();
-
-                    } catch (Exception e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                    }else {Alert alert = new Alert(Alert.AlertType.ERROR, "information its not correct");
+                        alert.show();
+                    }} catch (Exception e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "information its not correct");
                     }
                 });
         saveSuggestionBtn.setOnAction((event) -> {

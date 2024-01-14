@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
                             FXMLLoader.load(getClass().getClassLoader().getResource("BookFrame.fxml"))
                     );
                     stage.setScene(scene);
-                    stage.setTitle("User Information");
+                    stage.setTitle("Librarian");
                     stage.show();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "Your welcome");
                     alert.show();
@@ -69,7 +69,7 @@ if (management != null) {
     FXMLLoader.load(getClass().getClassLoader().getResource("BookFrame.fxml"))
  );
                         stage.setScene(scene);
-                        stage.setTitle("Account Information");
+                        stage.setTitle("Librarian");
                         stage.show();
     Alert alert = new Alert(Alert.AlertType.INFORMATION, "your welcome");
 

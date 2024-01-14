@@ -24,7 +24,7 @@ public class SuggestionService {
     }
     public List<Suggestion> findAll() throws Exception {
         try (SuggestionRepository suggestionRepository = new SuggestionRepository()) {
-            log.info("save");
+            log.info("findAll");
             return suggestionRepository.findAll();
         }
     }
@@ -33,9 +33,11 @@ public class SuggestionService {
             Suggestion suggestion = suggestionRepository.findById(id);
             if (suggestion != null){
                 suggestionRepository.remove(id);
+                log.info("remove");
                 return suggestion;
             }
             else {
+                log.error("Error remove");
                 return null;
             }
         }

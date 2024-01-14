@@ -38,6 +38,7 @@ public class SuggestionRepository implements AutoCloseable {
 
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
+        log.info("remove");
         return null;
     }
     public Suggestion findById(int id) throws Exception {
@@ -57,7 +58,8 @@ public class SuggestionRepository implements AutoCloseable {
                             .suggest(resultSet.getString("Suggestion"))
                             .build();
         }
-        return suggestion;
+                      log.info("findById");
+                       return suggestion;
     }
     public List<Suggestion> findAll() throws Exception   {
         connection = JdbcProvider.getJdbcProvider().getConnection();
@@ -76,6 +78,7 @@ public class SuggestionRepository implements AutoCloseable {
                             .build();
             suggestionList.add(suggestion);
         }
+        log.info("findAll");
         return suggestionList;
     }
     @Override
