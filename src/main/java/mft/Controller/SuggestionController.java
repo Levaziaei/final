@@ -19,17 +19,17 @@ public class SuggestionController {
         return controller;
     }
 
-    public Suggestion save(String suggestion) throws Exception {
-        if (Pattern.matches("^[a-zA-Z1-9]+$", suggestion)) {
-            Suggestion admin =
+    public Suggestion save(String suggest) throws Exception {
+        if (Pattern.matches("^[a-zA-Z1-9]+$", suggest)) {
+            Suggestion suggestion =
                     Suggestion
                             .builder()
-                            .suggestion(suggestion)
+                            .suggest(suggest)
                             .build();
-            System.out.println(admin);
-            SuggestionService.getService().save(admin);
-            log.info("Save");
-            return admin;
+            System.out.println(suggestion);
+            SuggestionService.getService().save(suggestion);
+            log.info("save");
+            return suggestion;
         } else {
             log.error("Error Save");
             throw new Exception("Invalid Data");

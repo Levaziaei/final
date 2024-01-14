@@ -25,9 +25,9 @@ public class SuggestionRepository implements AutoCloseable {
         preparedStatement = connection.prepareStatement(
                 "INSERT INTO SUGGESTION_TBL(ID, SUGGESTION) VALUES (?,?)" );
         preparedStatement.setInt(1, suggestion.getId());
-        preparedStatement.setString(2, suggestion.getSuggestion());
+        preparedStatement.setString(2, suggestion.getSuggest());
         preparedStatement.execute();
-        log.info("Save repository");
+        log.info("save ");
         return suggestion;
     }
     public Suggestion remove(int id) throws Exception {
@@ -54,7 +54,7 @@ public class SuggestionRepository implements AutoCloseable {
                     Suggestion
                             .builder()
                             .id(resultSet.getInt("ID"))
-                            .suggestion(resultSet.getString("Suggestion"))
+                            .suggest(resultSet.getString("Suggestion"))
                             .build();
         }
         return suggestion;
@@ -72,7 +72,7 @@ public class SuggestionRepository implements AutoCloseable {
                     Suggestion
                             .builder()
                             .id(resultSet.getInt("ID"))
-                            .suggestion(resultSet.getString("Suggestion"))
+                            .suggest(resultSet.getString("Suggestion"))
                             .build();
             suggestionList.add(suggestion);
         }

@@ -13,7 +13,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class Suggestion {
 public int id;
-public String suggestion;
+public String suggest;
 
     public Suggestion() {
         log.info("Save created");

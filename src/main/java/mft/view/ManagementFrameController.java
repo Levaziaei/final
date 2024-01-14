@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import mft.Controller.ManagementController;
 import mft.model.entity.Management;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,37 +23,38 @@ import java.util.ResourceBundle;
         saveBtn.setOnAction((event) -> {
                 try {
                     Management management = ManagementController.getController().save(
-                     usernameTxt.getText(),
+                            usernameTxt.getText(),
                             nameAndFamilyTxt.getText(),
-                            passwordTxt.getText());
-                    if (management != null) {
-                        Stage stage = new Stage();
-                        Scene scene = new Scene(
-FXMLLoader.load(getClass().getClassLoader().getResource("BookFrame.fxml"))
-                        );
-                    stage.setScene(scene);
-                    stage.setTitle("Account Information");
-                    stage.show();
-                    saveBtn.getParent().getScene().getWindow().hide();
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Username/Password");
+                            passwordTxt.getText()
+                    );
 
-                    }
-                } catch (Exception e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
-                }
-            });
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(
+                            FXMLLoader.load(getClass().getClassLoader().getResource("BookFrame.fxml"))
+                    );
+                    stage.setScene(scene);
+                    stage.setTitle("User Information");
+                    stage.show();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Your welcome");
+                    alert.show();
+                    saveBtn.getParent().getScene().getWindow().hide();
+                    } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Username/Password");
+                    alert.show();
+                } });
             removeBtn.setOnAction((event) -> {
                     try {
                         ManagementController.getController().remove(
                                 usernameTxt.getText(),
                                 passwordTxt.getText()
                         );
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Log out");
+                        alert.show();
                         removeBtn.getParent().getScene().getWindow().hide();
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Username/Password");
+                        alert.show();
                     }
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Log out");
                 });
 
 findByUsernameAndPasswordBtn.setOnAction((event) -> {
@@ -69,14 +71,17 @@ if (management != null) {
                         stage.setScene(scene);
                         stage.setTitle("Account Information");
                         stage.show();
+    Alert alert = new Alert(Alert.AlertType.INFORMATION, "your welcome");
+
     findByUsernameAndPasswordBtn.getParent().getScene().getWindow().hide();
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid Username/Password");
-
+                         alert.show();
                     }
 
                 } catch (Exception e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                    alert.show();
                 }});
 
        registerForAdminBtn.setOnAction((event) -> {

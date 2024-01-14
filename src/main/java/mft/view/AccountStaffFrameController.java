@@ -116,7 +116,7 @@ public class AccountStaffFrameController  implements Initializable {
             Suggestion suggestion = suggestionTbl.getSelectionModel().getSelectedItem();
 
             idSuggestionTxt.setText(String.valueOf(suggestion.getId()));
-            suggestionTxt.setText(suggestion.getSuggestion());
+            suggestionTxt.setText(suggestion.getSuggest());
         });
     }
 

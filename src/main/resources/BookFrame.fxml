@@ -7,12 +7,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="308.0" prefWidth="636.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mft.view.BookFrameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="636.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mft.view.BookFrameController">
    <children>
       <Label layoutX="8.0" layoutY="25.0" prefHeight="17.0" prefWidth="133.0" text="Search by name book:" />
       <Label layoutX="36.0" layoutY="46.0" />
       <TextField fx:id="searchForNameBookTxt" layoutX="191.0" layoutY="21.0" />
-      <Button fx:id="SaveAndRemoveBtn" layoutX="103.0" layoutY="255.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="save" />
+      <Button fx:id="SaveAndRemoveBtn" layoutX="97.0" layoutY="308.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="save" />
       <Label layoutX="14.0" layoutY="102.0" prefHeight="17.0" prefWidth="149.0" />
       <TableView fx:id="bookTbl" layoutX="373.0" layoutY="21.0" prefHeight="259.0" prefWidth="240.0">
         <columns>
@@ -31,5 +31,6 @@
       <TextField fx:id="suggestionTxt" layoutX="191.0" layoutY="220.0" />
       <TextField fx:id="idTxt" disable="true" layoutX="191.0" layoutY="66.0" />
       <Label layoutX="8.0" layoutY="70.0" text="Id:" />
+      <Button fx:id="saveSuggestionBtn" layoutX="249.0" layoutY="255.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="send suggest" />
    </children>
 </Pane>

@@ -15,4 +15,5 @@ import lombok.experimental.SuperBuilder;
 public class AccountStaff {
     public Management management;
     public Book book;
+    public Suggestion suggestion;
 }

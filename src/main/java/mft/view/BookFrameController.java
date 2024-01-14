@@ -5,13 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import mft.Controller.ManagementController;
 import mft.Controller.SuggestionController;
 import mft.Controller.BookController;
 import mft.Controller.BorrowController;
 import mft.model.entity.Book;
 import mft.model.entity.Borrow;
-import mft.model.entity.Management;
 import mft.model.entity.Suggestion;
 
 import java.net.URL;
@@ -52,7 +50,7 @@ public class BookFrameController implements Initializable {
                 });
         saveSuggestionBtn.setOnAction((event) -> {
             try {
-                SuggestionController.getController().save(
+                Suggestion suggestion =SuggestionController.getController().save(
                         suggestionTxt.getText());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, "Thanks :>");
                 alert.show();
