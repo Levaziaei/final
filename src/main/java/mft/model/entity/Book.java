@@ -10,9 +10,9 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 public class Book  {
-   public int id;
-   public String nameBook;
-   public String authorBook;
+   private int id;
+   private String nameBook;
+   private String authorBook;
 
 
    public Book() {

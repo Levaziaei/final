@@ -12,8 +12,8 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 public class Suggestion {
-public int id;
-public String suggest;
+private int id;
+private String suggest;
 
     public Suggestion() {
         log.info("Save created");

@@ -14,9 +14,9 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class Management  {
  private int id;
- public String username;
- public String nameAndFamily;
- public String password;
+ private String username;
+ private String nameAndFamily;
+ private String password;
 public Management() {
 
  log.info("Save created");

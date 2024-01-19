@@ -11,12 +11,12 @@ import lombok.extern.log4j.Log4j;
 @SuperBuilder(toBuilder = true)
 @Log4j
 public class Borrow {
-public int id;
-public String username;
-public String nameBook;
-public String authorBook;
-public Management management;
-public Book book;
+private int id;
+private String username;
+private String nameBook;
+private String authorBook;
+private Management management;
+private Book book;
   public Borrow() {
  log.info("Save created");
   }

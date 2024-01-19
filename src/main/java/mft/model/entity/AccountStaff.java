@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @ToString
 
 public class AccountStaff {
-    public Management management;
-    public Book book;
-    public Suggestion suggestion;
+    private Management management;
+    private Book book;
+    private Suggestion suggestion;
 }
